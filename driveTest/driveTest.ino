@@ -8,16 +8,28 @@ const int rightMotorPin1 = 9;
 const int leftRotationPin = 10;
 
 
+<<<<<<< Updated upstream
 const int turn = 500;
 const int around = 1000;
+=======
+
+//Variables
+const int turn = 525;
+const int around = 1025;
+>>>>>>> Stashed changes
 int left = 255;
 int right = 255;
 unsigned long duration;
 unsigned int distance;
+<<<<<<< Updated upstream
 
+=======
+bool checkedLeft = false;
+>>>>>>> Stashed changes
 bool checkedFrontL = false;
 bool checkedLeftL = false;
 bool checkedRightL = false;
+bool checkingLeft = false;
 
 void setup() {
   pinMode(triggerPin, OUTPUT);
