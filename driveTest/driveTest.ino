@@ -33,8 +33,54 @@ void setup() {
 
 void loop() {
   detectWall();
-  if(distance < 10) {
-    checkLeft();  
+  if(checkingLeft == false && distance < 8) {
+    Serial.println("Checking left side");
+    checkingLeft = true;
+    brake();
+    turnLeft();
+    brake();
+    driveForward();
+    detectWall();
+    while(checkedFrontL == false) {
+      Serial.println("Checking Front");
+      driveForward();
+      detectWall();
+      if(distance < 8) {
+        Serial.println("Front wall detected");
+        brake();
+        turnLeft();
+        brake();
+        checkedFrontL = true;
+      }
+    }
+    if(checkedFrontL == true) {     
+      while(checkedLeftL == false) {
+        Serial.println("Checking left");  
+        driveForward();
+        detectWall();  
+        if(distance < 8) {
+          Serial.println("Left wall detected");
+          brake();
+          turnAround();
+          brake();
+          checkedLeftL = true;
+        }
+      }
+    }
+    if(checkedLeftL == true) {     
+      while(checkedRightL == false) {
+        Serial.println("Checking right");  
+        driveForward();
+        detectWall();  
+        if(distance < 8) {
+          Serial.println("Right wall detected");
+          brake();
+          turnAround();
+          brake();
+          checkedRightL = true;
+        }
+      }
+    }
   }
   else {
     driveForward();
@@ -54,14 +100,18 @@ void detectWall() {
 
 void driveForward() {
    left = 200;
-   right = 200;
+   right = 210;
    analogWrite(leftMotorPin2, left);
    digitalWrite(leftMotorPin1, LOW);
    analogWrite(rightMotorPin2, right);
    digitalWrite(rightMotorPin1, LOW);   
 }
 
+<<<<<<< Updated upstream
 void brake() {
+=======
+void brake() {                          //This function deactivates both motors and will make the battlebot stop driving for a short time
+>>>>>>> Stashed changes
    left = 0;
    right = 0;
    analogWrite(leftMotorPin2, left);
@@ -71,7 +121,20 @@ void brake() {
    delay(500);
 }
 
+<<<<<<< Updated upstream
 void turnRight() {
+=======
+void stop() {                          //This function deactivates both motors and will make the battlebot stop driving
+   left = 0;
+   right = 0;
+   analogWrite(leftMotorPin2, left);
+   digitalWrite(leftMotorPin1, LOW);
+   analogWrite(rightMotorPin2, right);
+   digitalWrite(rightMotorPin1, LOW); 
+}
+
+void turnRight() {                      //This function will make the battlebot make a 90 degree right turn
+>>>>>>> Stashed changes
   left = 200;
   right = 200;
   analogWrite(leftMotorPin2, left);
@@ -101,9 +164,34 @@ void turnAround() {
   delay(around);
 }
 
+<<<<<<< Updated upstream
 void checkLeft() {
   if(checkedFrontL = false) {
+=======
+void checkLeft() {                      //This function will make the battlebot check the left side to see if its the right path to take
+  Serial.println("Checking left side");
+  if(checkedFrontL == false) {
+    Serial.println("Checking front");
+>>>>>>> Stashed changes
     brake();
-    turnLeft();
+    turnLeft();     
+    brake();
+    driveForward();
+    detectWall();
+    if(distance < 8) {
+      checkedFrontL = true;
+      if(checkedFrontL == true && checkedLeftL == false && distance < 8) {
+        Serial.println("Checking left");
+        brake();
+        turnLeft();
+        brake();
+        if(distance < 8) {
+          checkedLeftL = true;
+        }
+      }
+    }
+  }
+  else {
+    Serial.println("Already checked left side");
   }
 }
