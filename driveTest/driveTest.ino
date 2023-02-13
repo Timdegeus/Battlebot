@@ -1,12 +1,13 @@
 //Pinnumbers
+const int grabberPin = 2;
 const int leftMotorPin1 = 3;
 const int triggerPin = 4;
 const int leftMotorPin2 = 5;
 const int rightMotorPin2 = 6;
 const int echoPin = 7;
-const int rightRotationPin = 8;
 const int rightMotorPin1 = 9;
-const int leftRotationPin = 10;
+const int leftRotationSensor = A0;
+const int rightRotationSensor = A7;
 
 
 
@@ -170,28 +171,5 @@ void turnAround() {                     //This function will make the battlebot 
 }
 
 void checkLeft() {                      //This function will make the battlebot check the left side to see if its the right path to take
-  Serial.println("Checking left side");
-  if(checkedFrontL == false) {
-    Serial.println("Checking front");
-    brake();
-    turnLeft();     
-    brake();
-    driveForward();
-    detectWall();
-    if(distance < 8) {
-      checkedFrontL = true;
-      if(checkedFrontL == true && checkedLeftL == false && distance < 8) {
-        Serial.println("Checking left");
-        brake();
-        turnLeft();
-        brake();
-        if(distance < 8) {
-          checkedLeftL = true;
-        }
-      }
-    }
-  }
-  else {
-    Serial.println("Already checked left side");
-  }
+
 }
